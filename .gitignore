@@ -2,6 +2,7 @@ HUGGING_ENV/
 Course/
 First/
 Sentiment/data/
+.DS_Store
 
 FineTune_Sentiment_1/aclImdb/
 FineTune_Sentiment_1/results/
