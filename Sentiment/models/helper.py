@@ -1,5 +1,34 @@
 from pathlib import Path
 from sklearn.utils import shuffle
+import os
+import urllib.request
+import tarfile
+
+
+def download_data():
+    # URL of the IMDb dataset tar.gz file
+    url = "https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
+
+    # Destination folder for the extracted dataset
+    destination_folder = os.path.join(os.path.dirname(os.getcwd()), "data")
+
+    # Create the destination folder if it doesn't exist
+    if os.path.exists(destination_folder):
+        return "Already downloaded and extracted."
+    else:
+        os.makedirs(destination_folder)
+
+    # Download the tar.gz file
+    filename, _ = urllib.request.urlretrieve(url)
+
+    # Extract the contents of the tar.gz file
+    with tarfile.open(filename, "r:gz") as tar:
+        tar.extractall(destination_folder)
+
+    # Remove the downloaded tar.gz file
+    os.remove(filename)
+    return "IMDb dataset downloaded and extracted to the '{}' folder.".format(destination_folder)
+
 
 def read_imdb_split(split_dir):
     split_dir = Path(split_dir)
