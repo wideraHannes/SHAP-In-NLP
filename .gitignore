@@ -2,6 +2,8 @@ HUGGING_ENV/
 Course/
 First/
 Sentiment/data/
+Sentiment/model-overview/
+
 .DS_Store
 
 FineTune_Sentiment_1/aclImdb/
