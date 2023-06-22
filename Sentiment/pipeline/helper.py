@@ -4,6 +4,11 @@ import os
 import urllib.request
 import tarfile
 
+from bs4 import BeautifulSoup
+import contractions
+import re
+import string
+
 
 def download_data():
     # URL of the IMDb dataset tar.gz file
@@ -29,6 +34,14 @@ def download_data():
     os.remove(filename)
     return "IMDb dataset downloaded and extracted to the '{}' folder.".format(destination_folder)
 
+def preprocessor(text):
+  soup = BeautifulSoup(text, 'html.parser')
+  text = soup.get_text()
+  text = text.lower()
+  text = contractions.fix(text)
+  text = text.translate(str.maketrans(string.punctuation, " " * len(string.punctuation)))
+  text = re.sub(' +', ' ', text)
+  return text 
 
 def read_imdb_split(split_dir):
     split_dir = Path(split_dir)
@@ -39,4 +52,5 @@ def read_imdb_split(split_dir):
             texts.append(text_file.read_text())
             labels.append(0 if label_dir == "neg" else 1)
     texts, labels= shuffle(texts, labels, random_state=42)
+    texts = list(map(preprocessor,texts))
     return texts, labels

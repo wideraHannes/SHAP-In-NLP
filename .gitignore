@@ -6,10 +6,10 @@ Sentiment/model-overview/
 
 .DS_Store
 
-FineTune_Sentiment_1/aclImdb/
-FineTune_Sentiment_1/results/
-FineTune_Sentiment_1/sentiment_transfer_learning_transformer/
-FineTune_Sentiment_1/data.csv
+Sentiment/FineTune_Sentiment_1/aclImdb/
+Sentiment/FineTune_Sentiment_1/results/
+Sentiment/FineTune_Sentiment_1/sentiment_transfer_learning_transformer/
+Sentiment/FineTune_Sentiment_1/data.csv
 
 FineTune_Argument_1/argument_transfer_learning_transformer/
 FineTune_Argument_1/data.csv
