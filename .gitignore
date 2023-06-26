@@ -14,3 +14,7 @@ Sentiment/FineTune_Sentiment_1/data.csv
 FineTune_Argument_1/argument_transfer_learning_transformer/
 FineTune_Argument_1/data.csv
 
+FineTunedBERT/
+
+*.pkl
+
