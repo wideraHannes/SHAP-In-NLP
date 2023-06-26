@@ -14,7 +14,11 @@ Sentiment/FineTune_Sentiment_1/data.csv
 FineTune_Argument_1/argument_transfer_learning_transformer/
 FineTune_Argument_1/data.csv
 
-FineTunedBERT/
+# Ignore all files and directories under FineTunedBERT/
+FineTunedBERT/Argument/26062217/*
+
+FineTunedBERT/Sentiment/24060142/*
+FineTunedBERT/Sentiment/30051621/*
 
 *.pkl
 
