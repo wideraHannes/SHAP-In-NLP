@@ -36,6 +36,13 @@ def get_misclassifications(y_test, PREDICTION_FILE):
     # Berechne die Differenz zwischen tatsächlichen Klassen und vorhergesagten Wahrscheinlichkeiten
     df['diff'] = np.abs(df['label'] - df[proba_col_name])
 
+    # Assuming logreg_misclassifications is a DataFrame with columns 'label', 'logreg_0', 'logreg_1'
+
+  # Create a new column 'misclassified' and set its value based on the misclassification condition
+    df['misclassified'] = df.apply(lambda row: (row['label'] == 1 and row[1] <= 0.5) or (row['label'] == 0 and row[1] > 0.5),axis=1)
+    # remove all not misclassified rows
+    df = df[df['misclassified'] == True]
+
     # Sortiere den DataFrame nach der 'diff' Spalte in absteigender Reihenfolge
     df_misclassified = df.sort_values(by='diff', ascending=False)
 
