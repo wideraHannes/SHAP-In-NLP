@@ -36,12 +36,12 @@ def highlight_signal_words(shap_values,round_shap_values=3, top_words=5):
     for index, word in enumerate(words):
         if index in lowest_indices:
             word, _, value = lowest_word_index_value[lowest_indices.index(index)]
-            highlighted_text.append(highlight_word(word, value, '#004369'))
+            highlighted_text.append(highlight_word(word, value, '#57c2ff'))
         elif index in highest_indices:
             word, _, value = highest_word_index_value[highest_indices.index(index)]
-            highlighted_text.append(highlight_word(word, value, '#DB1F48'))
+            highlighted_text.append(highlight_word(word, value, '#ff6284'))
         else:
             highlighted_text.append(word)
     
-    text = f"<div style='font-size: 1.3em; line-height: 2em;'>{' '.join(highlighted_text)}</div>"
+    text = f"<div style='font-size: 1.3em; line-height: 2em; background-color:transparent'>{' '.join(highlighted_text)}</div>"
     display(HTML(text))
