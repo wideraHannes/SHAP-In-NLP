@@ -75,8 +75,6 @@ def custom_global_boxplot(shap_values, num_words=10, name=""):
     values = shap_values.values
     feature_names = shap_values.feature_names
 
-    print('Started custom_global_boxplot')
-
     word_dict = {}
     for row_values, row_features in zip(values, feature_names):
         for value, word in zip(row_values, row_features):
