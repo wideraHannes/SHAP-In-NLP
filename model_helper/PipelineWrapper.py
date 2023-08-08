@@ -3,6 +3,11 @@ from sklearn.metrics import classification_report
 from sklearn.pipeline import Pipeline
 
 class PipelineWrapper():
+    """The class is a Python wrapper designed to streamline text classification 
+    tasks using scikit-learn pipelines. It encapsulates a model and vectorizer within a pipeline, 
+    offering simple methods for fitting,
+    predicting, generating classification reports, and retrieving feature names.
+    """
     def __init__(self, model, vectorizer, corpus_test, corpus_train, y_test, y_train):
         self.corpus_test = corpus_test
         self.corpus_train = corpus_train
