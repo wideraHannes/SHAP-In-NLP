@@ -1,8 +1,12 @@
-# BA-Widera-Code
+# Overview Of SHapley Additive exPlanations (SHAP) In Natural Language Processing
+
 
 ## Introduction
 
 This project is a part of my Thesis "Overview Of SHapley Additive exPlanations (SHAP) In Natural Language Processing", where I primarily worked with Python Notebooks. Throughout the thesis, I dealt with two datasets: the Large Movie Review Dataset, which I used for sentiment analysis, and the IBM Debater: Evidence Sentences Dataset, on which I performed argument mining.
+Additionally i added my final Thesis as PDF.
+
+``German grade 1.0 (very good)``
 
 ## Sentiment Analysis
 
