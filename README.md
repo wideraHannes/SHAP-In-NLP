@@ -1,27 +1,77 @@
-# Overview Of SHapley Additive exPlanations (SHAP) In Natural Language Processing
-
+# Overview of SHapley Additive exPlanations (SHAP) in Natural Language Processing
 
 ## Introduction
 
-This project is a part of my Thesis "Overview Of SHapley Additive exPlanations (SHAP) In Natural Language Processing", where I primarily worked with Python Notebooks. Throughout the thesis, I dealt with two datasets: the Large Movie Review Dataset, which I used for sentiment analysis, and the IBM Debater: Evidence Sentences Dataset, on which I performed argument mining.
-Additionally i added my final Thesis as PDF.
+This repository contains the project work from my thesis, **“Overview of SHapley Additive exPlanations (SHAP) in Natural Language Processing”**.
 
-``German grade 1.0 (very good)``
+The thesis investigates how SHAP can be applied to NLP models and focuses on interpreting text-based machine learning models through Python notebooks. The experiments cover two NLP tasks:
+
+- **Sentiment analysis** using the Large Movie Review Dataset
+- **Argument mining** using the IBM Debater: Evidence Sentences Dataset
+
+In **Chapter 3**, the thesis explains the theoretical foundation of SHAP, including Shapley values, additive feature attribution methods, and the mathematical properties behind SHAP. It also describes the main components required to apply SHAP to NLP models, such as the Partition Explainer, text maskers, explanations, and visualization methods.
+
+A major contribution of this project is the implementation of two custom SHAP-based visualization methods for NLP:
+
+- a **local highlight plot** that emphasizes the most relevant words in longer text samples
+- a **global boxplot visualization** that shows the distribution of SHAP values for the most influential words
+
+For a quick read of the main findings, see [Advantages and Challenges of SHAP](06-advantages-and-challenges-of-shap.md).
+
+The repository also includes the final thesis as a PDF.
+
+**Final grade:** German grade 1.0 (*very good*)
+
+## What is SHAP?
+
+SHAP is a method for explaining machine learning predictions by assigning an importance value to each input feature. The idea comes from game theory. Imagine a group of pirates lifting a heavy stone to reach a treasure. Each pirate contributes differently to lifting the stone, so the treasure should be distributed based on each pirate's contribution.
+
+In machine learning, the pirates are the input features and the treasure is the model output. For NLP models, the features are usually words, tokens, or subwords. SHAP measures how much each feature contributes to the final prediction.
+
+The Shapley value of a feature is the average marginal contribution of that feature across all possible feature coalitions:
+
+$$
+\phi_i(v) = \frac{1}{n!} \sum_{p \in P} \left[ v(p_i^p \cup \{i\}) - v(p_i^p) \right]
+$$
+
+This means that we compare the model output with and without a feature across different feature combinations, and then average its contribution.
+
+SHAP is especially useful because Shapley values satisfy four important properties: efficiency, symmetry, dummy, and additivity. In the pirate example, this means that the whole treasure is distributed fairly among the pirates. Efficiency ensures that the entire treasure is assigned and nothing is lost. Symmetry means that two pirates who contribute equally to lifting the stone receive the same share. Dummy means that a pirate who does not help lift the stone receives nothing. Additivity means that if the pirates find multiple treasures, it does not matter whether the shares are calculated separately for each treasure or together at once; each pirate's total share remains consistent.
+
+Because Shapley values are the unique solution that satisfies these properties, SHAP provides a theoretically well-founded way to explain model predictions.
 
 ## Sentiment Analysis
 
-The Sentiment analysis code can be found in the `Sentiment` folder. The main notebook for Sentiment Analysis is located inside the `pipeline` folder and named "Sentiment_Analysis_SHAP". In this notebook, I conducted Sentiment analysis using three different models: Decision Tree, Logistic regression, and BERT. After the training, I locally interpreted certain misclassifications and performed global analysis on the important words.
+The sentiment analysis code is located in the [`Sentiment`](Sentiment) folder. The main notebook can be found in the [`Sentiment/pipeline`](Sentiment/pipeline) folder under the name [`Sentiment_Analysis_SHAP.ipynb`](Sentiment/pipeline/Sentiment_Analysis_SHAP.ipynb).
+
+In this notebook, I trained and analyzed three different models:
+
+- Decision Tree
+- Logistic Regression
+- BERT
+
+After training, I used SHAP to locally interpret selected misclassifications and to perform a global analysis of important words. This helped reveal which words had the strongest influence on the model predictions and where the models failed to understand the actual sentiment of a text.
 
 <img width="912" height="657" alt="Bildschirmfoto 2026-01-13 um 14 13 48" src="https://github.com/user-attachments/assets/87d11528-35b1-4ef6-ba0d-d531cb06ed3c" />
 
-
 ## Argument Mining
 
-Similarly, the code for Argument mining is located inside the `Argument` folder. The dedicated notebook for Argument Mining can be found inside the `pipeline` folder, named "Claim_Detection_SHAP". In this notebook, I trained and analyzed the exact same models as in Sentiment Analysis but on a different task, which is Argument mining.
+The argument mining code is located in the [`Argument`](Argument) folder. The corresponding notebook can be found in the [`Argument/pipeline`](Argument/pipeline) folder under the name [`Claim_Detection_SHAP.ipynb`](Argument/pipeline/Claim_Detection_SHAP.ipynb).
 
-## Custom Shap Explainer
+In this notebook, I trained and analyzed the same three model types used for sentiment analysis: Decision Tree, Logistic Regression, and BERT. However, instead of classifying movie reviews by sentiment, the models were applied to an argument mining task using the IBM Debater: Evidence Sentences Dataset.
 
-For further investigation of certain classifications and to gain a better global overview of the important words, I created a custom Shap explainer. This custom explainer is located inside the `custom_shap_explainer` folder. It includes custom plots, such as a local word highlighting plot that highlights only the words with the biggest impact, and a global plot that displays a boxplot to provide more information about the distribution of the most important words.
+The goal was to investigate whether SHAP can also provide useful explanations for more complex NLP tasks, such as detecting evidence or argumentative content in text.
+
+## Custom SHAP Visualizations
+
+To further investigate individual classifications and gain a better global overview of important words, I implemented custom SHAP-based visualization methods. These can be found in the [`custom_shap_explainer`](custom_shap_explainer) folder.
+
+The custom visualizations include:
+
+- a **local word highlighting plot** that highlights only the words with the strongest impact on a prediction
+- a **global boxplot visualization** that provides more information about the distribution of SHAP values for the most important words
+
+These plots were created because the default SHAP visualizations are useful, but can become difficult to read for longer texts or larger sets of local explanations.
 
 <img width="606" height="204" alt="Bildschirmfoto 2026-01-13 um 14 10 53" src="https://github.com/user-attachments/assets/423667c1-48a7-4676-a659-b1a5aa0f7f12" />
 
@@ -29,9 +79,11 @@ For further investigation of certain classifications and to gain a better global
 
 ## Getting Started
 
-To get started with the code in this repository, follow these steps:
+To get started with the code in this repository:
 
-1. Clone this repository to your local machine.
-2. Make sure you have the required dependencies installed.
-3. Open the respective notebooks for Sentiment Analysis and Argument Mining located in the `pipeline` folder.
-4. Run the code cells in the notebooks to perform the analyses.
+1. Clone the repository to your local machine.
+2. Install the required dependencies.
+3. Open the relevant notebook in the corresponding `pipeline` folder:
+   - [`Sentiment/pipeline/Sentiment_Analysis_SHAP.ipynb`](Sentiment/pipeline/Sentiment_Analysis_SHAP.ipynb)
+   - [`Argument/pipeline/Claim_Detection_SHAP.ipynb`](Argument/pipeline/Claim_Detection_SHAP.ipynb)
+4. Run the notebook cells to train the models and generate the SHAP explanations.
