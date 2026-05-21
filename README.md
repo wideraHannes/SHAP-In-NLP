@@ -24,21 +24,27 @@ The repository also includes the final thesis as a PDF.
 
 ## What is SHAP?
 
-SHAP is a method for explaining machine learning predictions by assigning an importance value to each input feature. The idea comes from game theory. Imagine a group of pirates lifting a heavy stone to reach a treasure. Each pirate contributes differently to lifting the stone, so the treasure should be distributed based on each pirate's contribution.
+SHAP is a framework for explaining machine learning predictions. It is based on **Shapley values**, a concept from game theory that was introduced to solve the problem of fairly distributing a reward among several players.
 
-In machine learning, the pirates are the input features and the treasure is the model output. For NLP models, the features are usually words, tokens, or subwords. SHAP measures how much each feature contributes to the final prediction.
+A simple way to understand this is the pirate example: imagine a group of pirates lifting a heavy stone to reach a hidden treasure. Each pirate contributes differently to lifting the stone. To divide the treasure fairly, we need to know how much each pirate actually contributed. The Shapley value measures this by checking how much the result changes when a specific pirate joins different possible groups of pirates.
 
-The Shapley value of a feature is the average marginal contribution of that feature across all possible feature coalitions:
+In machine learning, the idea is transferred as follows: the pirates become the input features, and the treasure becomes the model output. For NLP models, these features are usually words, tokens, or subwords. SHAP assigns each feature an importance value that describes how much it contributed to a specific prediction.
+
+SHAP belongs to the class of **additive feature attribution methods**. These methods explain a complex model by approximating its output with a simpler explanation model:
 
 $$
-\phi_i(v) = \frac{1}{n!} \sum_{p \in P} \left[ v(p_i^p \cup \{i\}) - v(p_i^p) \right]
+g(x') = \phi_0 + \sum_{i=1}^{M} \phi_i x_i'
 $$
 
-This means that we compare the model output with and without a feature across different feature combinations, and then average its contribution.
+Here, `g(x')` is the explanation model, `phi_0` is the base value, and each `phi_i` is the contribution of feature `i`. The simplified input `x'` indicates whether a feature is present or missing. This means that the final prediction can be explained as the base value plus the contributions of the individual features.
 
-SHAP is especially useful because Shapley values satisfy four important properties: efficiency, symmetry, dummy, and additivity. In the pirate example, this means that the whole treasure is distributed fairly among the pirates. Efficiency ensures that the entire treasure is assigned and nothing is lost. Symmetry means that two pirates who contribute equally to lifting the stone receive the same share. Dummy means that a pirate who does not help lift the stone receives nothing. Additivity means that if the pirates find multiple treasures, it does not matter whether the shares are calculated separately for each treasure or together at once; each pirate's total share remains consistent.
+The important point is that SHAP is not just a random explanation method. Shapley values satisfy four fairness properties: **efficiency**, **symmetry**, **dummy**, and **additivity**. In the pirate example, efficiency means that the whole treasure is distributed and nothing is lost. Symmetry means that two pirates who contribute equally receive the same share. Dummy means that a pirate who does not help lift the stone receives nothing. Additivity means that if the pirates find multiple treasures, it does not matter whether the shares are calculated separately or together; each pirate's total share remains consistent.
 
-Because Shapley values are the unique solution that satisfies these properties, SHAP provides a theoretically well-founded way to explain model predictions.
+Lundberg and Lee showed that, for additive feature attribution methods, these properties lead to a unique solution based on Shapley values. This is why SHAP can be understood as a unified framework for feature attribution: it combines several existing explanation approaches under one theoretically grounded solution.
+
+In practice, SHAP values describe how the model moves from a base value, usually the average prediction, to the final prediction for a specific input. Positive SHAP values push the prediction upward, while negative SHAP values push it downward. These values can then be visualized with plots, making it possible to inspect which words or tokens influenced a model prediction the most.
+
+For a more detailed explanation of the theory behind SHAP, including the mathematical background and the connection to additive feature attribution methods, see **Chapter 3** of the thesis.
 
 ## Sentiment Analysis
 
