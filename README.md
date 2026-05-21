@@ -16,7 +16,7 @@ A major contribution of this project is the implementation of two custom SHAP-ba
 - a **local highlight plot** that emphasizes the most relevant words in longer text samples
 - a **global boxplot visualization** that shows the distribution of SHAP values for the most influential words
 
-For a quick read of the main findings, see [Advantages and Challenges of SHAP](06-advantages-and-challenges-of-shap.md).
+For a quick read of the main findings, see [Advantages and Challenges of SHAP](06-advantages-and-challenges.md).
 
 The repository also includes the final thesis as a PDF.
 
